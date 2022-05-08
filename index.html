@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="size">
+        <h2>Set size of canvas</h2>
+        <button id="size-change">Change</button>
+    </div>
+
+    <div class="container">
+
+    </div>
+
+    <script>
+        const btn = document.querySelector('#size-change');
+        btn.addEventListener('click', () => {
+            setSize();
+        });
+        const container = document.querySelector('.container');
+
+        function setSize() {
+            let size = prompt("Input canvas size, up to 100", 16);
+            if (size > 100) {
+                alert('Canvas too big! Size needs to be less than 100');
+                return;
+            }
+            container.innerHTML = '';
+            displayGrid(size);
+        }
+
+        function displayGrid(size = 16) {
+            container.style.setProperty('grid-template-columns', `repeat(${size}, 1fr)`);
+            container.style.setProperty('grid-template-rows', `repeat(${size}), 1fr`);
+            for (i = 1; i <= size; i++) {
+                for (j = 1; j <= size; j++) {
+                    let gridElement = document.createElement('div');
+                    gridElement.classList.add('grid-element');
+                    // gridElement.textContent = `${i}-${j}`;
+                    gridElement.style.backgroundColor = "wheat";
+                    gridElement.addEventListener('mouseover', function () {
+                        gridElement.style.backgroundColor = "skyblue";
+                    });
+                    container.appendChild(gridElement);
+                }
+            }
+        }
+
+        displayGrid(10);
+
+    </script>
+</body>
+
+</html>
